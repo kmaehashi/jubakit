@@ -33,7 +33,7 @@ TEST_JSON = {
     "crc32": 0,  # invalid CRC32 checksum
   },
   "system": {
-    "config": "{}",
+    "config": '{"method": "perceptron", "converter": {}}',
     "timestamp": 1500000000,
     "version": 1,
     "type": "classifier",
