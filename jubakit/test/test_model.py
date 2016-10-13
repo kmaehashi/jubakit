@@ -90,7 +90,7 @@ class JubaModelTest(TestCase):
     self.assertEqual(1, m.user.version)
     self.assertEqual(TEST_JSON['user']['user_data'], m.user.user_data)
 
-    self.assertIsNotNone(m._user_raw)
+    self.assertTrue(m._user_raw is not None)
 
   def test_binary_broken(self):
     # get a broken binary model file
@@ -116,7 +116,7 @@ class JubaModelTest(TestCase):
     self.assertEqual('classifier', m.system.type)
     self.assertEqual(1, m.user.version)
     self.assertEqual(TEST_JSON['user']['user_data'], m.user.user_data)
-    self.assertIsNotNone(m._user_raw)
+    self.assertTrue(m._user_raw is not None)
 
   def test_convert_matrix(self):
     for in_fmt in ('binary', 'json'):
