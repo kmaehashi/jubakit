@@ -154,20 +154,27 @@ class JubaModelTest(TestCase):
           self.assertEqual(v1, v2)
 
 class JubaModelCommandTest(TestCase):
-  def _assert_exit(self, args, status):
-    self.assertEqual(_JubaModelCommand.start(args), status)
+  def _exit(self, args, status):
+    return _JubaModelCommand.start(args)
 
   def test_help(self):
     args = ['--help']
-    self._assert_exit(args, 2)
+    self.assertEqual(_JubaModelCommand.start(args), 0)
+
+  def test_valid_param(self):
+    with TempFile() as f:
+      f.write(_get_binary_file().read())
+      f.flush()
+      args = ['--in-format', 'binary', '--out-format', 'json', f.name]
+      self.assertEqual(_JubaModelCommand.start(args), 0)
 
   def test_invalid_param(self):
     with TempFile() as f:
       args = ['--in-format', 'none', f.name]
-      self._assert_exit(args, 2)
+      self.assertNotEqual(_JubaModelCommand.start(args), 0)
 
       args = ['--out-format', 'none', f.name]
-      self._assert_exit(args, 2)
+      self.assertNotEqual(_JubaModelCommand.start(args), 0)
 
       args = ['--no-such-option']
-      self._assert_exit(args, 2)
+      self.assertNotEqual(_JubaModelCommand.start(args), 0)

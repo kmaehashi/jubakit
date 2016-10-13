@@ -450,10 +450,10 @@ class _JubaModelCommand(object):
     USAGE = '''
     jubamodel [--in-format IN_FORMAT] [--out-format OUT_FORMAT]
               [--output OUTPUT] [--output-config OUTPUT_CONFIG]
-              [--no-validate] [--fix-header]  input_file
+              [--no-validate] [--fix-header]  model_file
     jubamodel --help'''
 
-    EPILOG = '  input_file            model file in format specified by --in-format'
+    EPILOG = '  model_file            input model file in format specified by --in-format'
 
     # TODO: migrate to argparse (which must be added into dependency to support Python 2.6)
     parser = _JubaModelOptionParser(add_help_option=False, usage=USAGE, epilog=EPILOG)
@@ -483,7 +483,7 @@ class _JubaModelCommand(object):
       print('  IN_FORMAT:  auto | binary | json')
       print('  OUT_FORMAT: text | binary | json')
 
-    (args, files) = parser.parse_args()
+    (args, files) = parser.parse_args(args)
 
     # Failed to parse options.
     if parser._error:
@@ -520,6 +520,7 @@ class _JubaModelCommand(object):
         no_validate=args.no_validate,
         fix_header=args.fix_header,
       )
+      success = True
     except JubaModelError as e:
       print(e)
 
