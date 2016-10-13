@@ -164,10 +164,10 @@ class JubaModelCommandTest(TestCase):
   def test_invalid_param(self):
     with TempFile() as f:
       args = ['--in-format', 'none', f.name]
-      self._assert_exit(args, 2)
+      self._assert_exit(args, 3)
 
       args = ['--out-format', 'none', f.name]
-      self._assert_exit(args, 2)
+      self._assert_exit(args, 3)
 
       args = ['--no-such-option']
-      self._assert_exit(args, 2)
+      self._assert_exit(args, 3)
