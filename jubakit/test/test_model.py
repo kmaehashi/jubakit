@@ -84,7 +84,7 @@ class JubaModelTest(TestCase):
     self.assertEqual(3, m.header.jubatus_version_maint)
     self.assertNotEqual(1, m.header.crc32)  # must be a valid model after fix_header
 
-    self.assertEqual('{}', m.system.config)
+    self.assertEqual(TEST_JSON['system']['config'], m.system.config)
     self.assertEqual('classifier', m.system.type)
 
     self.assertEqual(1, m.user.version)
@@ -112,7 +112,7 @@ class JubaModelTest(TestCase):
 
     self.assertNotEqual(0, m.header.crc32)
 
-    self.assertEqual('{}', m.system.config)
+    self.assertEqual(TEST_JSON['system']['config'], m.system.config)
     self.assertEqual('classifier', m.system.type)
     self.assertEqual(1, m.user.version)
     self.assertEqual(TEST_JSON['user']['user_data'], m.user.user_data)
@@ -164,10 +164,10 @@ class JubaModelCommandTest(TestCase):
   def test_invalid_param(self):
     with TempFile() as f:
       args = ['--in-format', 'none', f.name]
-      self._assert_exit(args, 3)
+      self._assert_exit(args, 2)
 
       args = ['--out-format', 'none', f.name]
-      self._assert_exit(args, 3)
+      self._assert_exit(args, 2)
 
       args = ['--no-such-option']
-      self._assert_exit(args, 3)
+      self._assert_exit(args, 2)

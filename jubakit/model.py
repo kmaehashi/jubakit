@@ -38,7 +38,7 @@ class JubaDump(object):
     status = proc.returncode
     if status != 0:
       raise InvalidModelFormatError('{0} (exit with status {1})'.format(stderr, status))
-    return json.loads(stdout)
+    return json.loads(stdout.decode())
 
   @classmethod
   def dump(cls, data):
@@ -289,13 +289,13 @@ class JubaModel(object):
     @classmethod
     def fields(cls):
       return [
-        ('format_version'       , '>Q', 1),
-        ('jubatus_version_major', '>I', 0),
-        ('jubatus_version_minor', '>I', 0),
-        ('jubatus_version_maint', '>I', 0),
-        ('crc32'                , '>I', 0),
-        ('system_data_size'     , '>Q', 0),
-        ('user_data_size'       , '>Q', 0),
+        ('format_version'       , b'>Q', 1),
+        ('jubatus_version_major', b'>I', 0),
+        ('jubatus_version_minor', b'>I', 0),
+        ('jubatus_version_maint', b'>I', 0),
+        ('crc32'                , b'>I', 0),
+        ('system_data_size'     , b'>Q', 0),
+        ('user_data_size'       , b'>Q', 0),
       ]
 
     @classmethod
